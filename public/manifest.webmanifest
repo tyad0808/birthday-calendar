@@ -1,0 +1,16 @@
+{
+  "name": "가족 생일",
+  "short_name": "가족 생일",
+  "description": "가족 생일을 양력·음력으로 한 번 등록하면 매년 양력 날짜로 보여줘요",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
