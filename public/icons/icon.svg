@@ -1,8 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#2b7de9"/>
-  <rect x="136" y="160" width="240" height="216" rx="28" fill="none" stroke="#fff" stroke-width="24"/>
-  <line x1="136" y1="224" x2="376" y2="224" stroke="#fff" stroke-width="24"/>
-  <line x1="200" y1="128" x2="200" y2="184" stroke="#fff" stroke-width="24" stroke-linecap="round"/>
-  <line x1="312" y1="128" x2="312" y2="184" stroke="#fff" stroke-width="24" stroke-linecap="round"/>
-  <circle cx="256" cy="298" r="22" fill="#fff"/>
+  <defs><clipPath id="c"><rect x="106" y="150" width="300" height="262" rx="56"/></clipPath></defs>
+  <rect width="512" height="512" rx="112" fill="#FFD43B"/>
+  <g clip-path="url(#c)">
+    <rect x="106" y="150" width="300" height="262" fill="#FFFFFF"/>
+    <rect x="106" y="150" width="300" height="74" fill="#FF8A80"/>
+  </g>
+  <!-- 고깔모자 -->
+  <path d="M256 40 L300 150 H212 Z" fill="#7EC8E3"/>
+  <path d="M234 96 L278 96 M224 122 L288 122" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="256" cy="40" r="16" fill="#FF8A80"/>
+  <!-- 얼굴 -->
+  <path d="M190 298 q18 -20 36 0" fill="none" stroke="#3E2F24" stroke-width="12" stroke-linecap="round"/>
+  <path d="M286 298 q18 -20 36 0" fill="none" stroke="#3E2F24" stroke-width="12" stroke-linecap="round"/>
+  <ellipse cx="176" cy="336" rx="22" ry="13" fill="#FFB3A7"/>
+  <ellipse cx="336" cy="336" rx="22" ry="13" fill="#FFB3A7"/>
+  <path d="M230 326 Q256 362 282 326 Z" fill="#3E2F24"/>
 </svg>
