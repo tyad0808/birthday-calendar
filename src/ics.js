@@ -91,3 +91,30 @@ export function buildICS(people, { fromYear, toYear, now = new Date() }) {
   lines.push('END:VCALENDAR');
   return lines.map(fold).join('\r\n') + '\r\n';
 }
+
+/** 알림이 실제로 오는지 확인용: 5분 뒤 일정 + 3분 전 알림(= 약 2분 뒤 알림) */
+export function buildTestICS(now = new Date()) {
+  const at = (min) => stamp(new Date(now.getTime() + min * 60000));
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Family Birthday Calendar//KO',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    `UID:test-${now.getTime()}@${UID_DOMAIN}`,
+    `DTSTAMP:${stamp(now)}`,
+    `DTSTART:${at(5)}`,
+    `DTEND:${at(6)}`,
+    'SUMMARY:가족 생일 알림 테스트',
+    'DESCRIPTION:이 알림이 왔다면 생일 알림도 잘 와요. 이 일정은 지워도 돼요.',
+    'BEGIN:VALARM',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:가족 생일 알림 테스트',
+    'TRIGGER:-PT3M',
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR',
+  ];
+  return lines.map(fold).join('\r\n') + '\r\n';
+}

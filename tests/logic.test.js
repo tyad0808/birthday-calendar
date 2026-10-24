@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { solarFromLunar, occurrenceForYear, nextOccurrence, occurrencesBetween, ageAt } from '../src/convert.js';
 import { dueAlerts, alertMessage } from '../src/alerts.js';
-import { buildICS } from '../src/ics.js';
+import { buildICS, buildTestICS } from '../src/ics.js';
 import { todayKST } from '../src/dates.js';
 
 const lunarP = (month, day, leap = false, extra = {}) => ({ id: 'p1', name: '엄마', calendar: 'lunar', month, day, leap, alerts: ['week', 'day', 'dday'], ...extra });
@@ -163,6 +163,14 @@ describe('ICS', () => {
   it('줄 길이 75옥텟 이하', () => {
     const long = buildICS([solarP(1, 1, { name: '아주아주아주아주아주아주아주아주아주아주아주긴이름' })], { fromYear: 2026, toYear: 2026 });
     for (const line of long.split('\r\n')) expect(new TextEncoder().encode(line).length).toBeLessThanOrEqual(75);
+  });
+});
+
+describe('알림 테스트 ICS', () => {
+  it('5분 뒤 일정, 3분 전 알림', () => {
+    const ics = buildTestICS(new Date('2026-10-24T00:00:00Z'));
+    expect(ics).toContain('DTSTART:20261024T000500Z');
+    expect(ics).toContain('TRIGGER:-PT3M');
   });
 });
 

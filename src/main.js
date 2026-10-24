@@ -2,7 +2,7 @@
 import './style.css';
 import { MAX_YEAR, nextOccurrence, occurrencesBetween, ageAt, lunarLabel } from './convert.js';
 import { STAGES, dueAlerts, alertMessage } from './alerts.js';
-import { buildICS } from './ics.js';
+import { buildICS, buildTestICS } from './ics.js';
 import { todayKST, diffDays, formatLong, formatShort, daysInSolarMonth, toISO } from './dates.js';
 import * as store from './storage.js';
 
@@ -364,11 +364,14 @@ function renderSettings() {
         <p class="desc" id="s-range" style="margin:8px 0 12px"></p>
         <button class="btn" id="s-export"${people.length ? '' : ' disabled'}>캘린더 파일 받기</button>
         <ul class="note">
+          <li><b>갤럭시</b> · 파일을 받은 뒤 화면 아래 [열기] 또는 <b>내 파일 → 다운로드</b>에서 파일을 눌러 <b>캘린더(삼성 캘린더)</b>로 열고 저장하세요.</li>
           <li><b>아이폰</b> · 받은 파일을 열면 바로 캘린더에 추가되고 알림도 함께 들어가요.</li>
-          <li><b>구글 캘린더</b> · PC 웹에서 설정 → 가져오기로 넣어요. 구글은 파일 속 알림을 무시하므로, 알림은 캘린더 기본 알림으로 설정해 주세요.</li>
-          <li>같은 파일을 다시 가져와도 일정이 중복되지 않아요.</li>
+          <li><b>구글 캘린더 앱</b>은 휴대폰에서 파일을 가져오지 못해요. <b>구글 캘린더</b> · PC 웹에서 설정 → 가져오기로 넣어요. 구글은 파일 속 알림을 무시하므로, 알림은 캘린더 기본 알림으로 설정해 주세요.</li>
+          <li>같은 파일을 다시 가져와도 일정이 중복되지 않아요. 사람을 추가하거나 알림을 바꾸면 다시 받아서 넣어 주세요.</li>
           <li>음력 날짜는 한국천문연구원 기준이며 ${MAX_YEAR}년까지 만들 수 있어요.</li>
         </ul>
+        <button class="btn secondary" id="s-test" style="margin-top:16px">알림 테스트 파일 받기</button>
+        <p class="desc" style="margin:8px 0 0">캘린더에 넣으면 약 2분 뒤 알림이 와요. 알림이 잘 오는지 먼저 확인해 보세요.</p>
       </section>
 
       <section>
@@ -418,6 +421,8 @@ function renderSettings() {
     // 파일 이름은 영문으로 (일부 브라우저가 한글 파일명을 무시함)
     download(`${id ? 'birthday' : 'family-birthdays'}-${t.y}-${toYear}.ics`, ics, 'text/calendar;charset=utf-8');
   };
+
+  $('#s-test').onclick = () => download('birthday-alarm-test.ics', buildTestICS(), 'text/calendar;charset=utf-8');
 
   $('#s-notify')?.addEventListener('click', async () => {
     await Notification.requestPermission();
