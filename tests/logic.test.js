@@ -167,10 +167,11 @@ describe('ICS', () => {
 });
 
 describe('알림 테스트 ICS', () => {
-  it('5분 뒤 일정, 3분 전 알림', () => {
+  it('15분 뒤 일정, 10분·15분 뒤 알림', () => {
     const ics = buildTestICS(new Date('2026-10-24T00:00:00Z'));
-    expect(ics).toContain('DTSTART:20261024T000500Z');
-    expect(ics).toContain('TRIGGER:-PT3M');
+    expect(ics).toContain('DTSTART:20261024T001500Z');
+    expect(ics).toContain('TRIGGER:-PT5M');
+    expect(ics).toContain('TRIGGER:PT0M');
   });
 });
 

@@ -92,7 +92,7 @@ export function buildICS(people, { fromYear, toYear, now = new Date() }) {
   return lines.map(fold).join('\r\n') + '\r\n';
 }
 
-/** 알림이 실제로 오는지 확인용: 5분 뒤 일정 + 3분 전 알림(= 약 2분 뒤 알림) */
+/** 알림이 실제로 오는지 확인용: 15분 뒤 일정, 10분 뒤·15분 뒤 두 번 알림 (가져오는 데 시간이 걸려도 놓치지 않게) */
 export function buildTestICS(now = new Date()) {
   const at = (min) => stamp(new Date(now.getTime() + min * 60000));
   const lines = [
@@ -104,14 +104,19 @@ export function buildTestICS(now = new Date()) {
     'BEGIN:VEVENT',
     `UID:test-${now.getTime()}@${UID_DOMAIN}`,
     `DTSTAMP:${stamp(now)}`,
-    `DTSTART:${at(5)}`,
-    `DTEND:${at(6)}`,
+    `DTSTART:${at(15)}`,
+    `DTEND:${at(16)}`,
     'SUMMARY:가족 생일 알림 테스트',
     'DESCRIPTION:이 알림이 왔다면 생일 알림도 잘 와요. 이 일정은 지워도 돼요.',
     'BEGIN:VALARM',
     'ACTION:DISPLAY',
     'DESCRIPTION:가족 생일 알림 테스트',
-    'TRIGGER:-PT3M',
+    'TRIGGER:-PT5M',
+    'END:VALARM',
+    'BEGIN:VALARM',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:가족 생일 알림 테스트',
+    'TRIGGER:PT0M',
     'END:VALARM',
     'END:VEVENT',
     'END:VCALENDAR',

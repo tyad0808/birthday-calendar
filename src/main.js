@@ -371,7 +371,7 @@ function renderSettings() {
           <li>음력 날짜는 한국천문연구원 기준이며 ${MAX_YEAR}년까지 만들 수 있어요.</li>
         </ul>
         <button class="btn secondary" id="s-test" style="margin-top:16px">알림 테스트 파일 받기</button>
-        <p class="desc" style="margin:8px 0 0">캘린더에 넣으면 약 2분 뒤 알림이 와요. 알림이 잘 오는지 먼저 확인해 보세요.</p>
+        <p class="desc" style="margin:8px 0 0">받은 뒤 <b>10분 뒤</b>와 <b>15분 뒤</b>에 알림이 와요. 알림이 잘 오는지 먼저 확인해 보세요.</p>
       </section>
 
       <section>
