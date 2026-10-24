@@ -79,12 +79,16 @@ function rowMarkup(item, t) {
       <div class="row-date">${MAX_YEAR}년 이후는 계산하지 않아요</div></div></button></li>`;
   }
   const age = ageAt(person, occ);
-  const meta = [person.calendar === 'lunar' ? lunarLabel(person) : '', age !== null ? `만 ${age}세` : ''].filter(Boolean).join(' · ');
   const year = occ.date.y !== t.y ? `${occ.date.y}년 ` : '';
+  // 음력 생일은 음력 날짜가 기준이고, 양력 날짜가 매년 바뀐다
+  const tag =
+    person.calendar === 'lunar'
+      ? html`<span class="tag lunar">${esc(lunarLabel(person))}</span> → 양력 `
+      : `<span class="tag">양력</span> `;
   return html`<li${daysLeft === 0 ? ' class="today-item"' : ''}><button class="row${daysLeft <= 7 ? ' soon' : ''}" data-id="${person.id}">
     <div class="row-main">
       <div class="row-name">${name}</div>
-      <div class="row-date">${year}${formatLong(occ.date)}${meta ? html` <span class="meta">· ${esc(meta)}</span>` : ''}</div>
+      <div class="row-date">${tag}${year}${formatLong(occ.date)}${age !== null ? html` <span class="meta">· 만 ${age}세</span>` : ''}</div>
     </div>
     <div class="dday">${ddayText(daysLeft)}</div>
   </button></li>`;
@@ -163,6 +167,7 @@ function openSheet(existing) {
             <select class="select" id="f-month" aria-label="월">${monthOptions}</select>
             <select class="select" id="f-day" aria-label="일"></select>
           </div>
+          <p class="hint" id="f-cal-hint"></p>
           <label class="check" id="f-leap-wrap"><input type="checkbox" id="f-leap" /> 윤달</label>
         </div>
         <div class="field">
@@ -209,6 +214,8 @@ function openSheet(existing) {
     daySel.value = draft.day;
     $('#f-cal').querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cal === draft.calendar)));
     $('#f-leap-wrap').hidden = draft.calendar !== 'lunar';
+    $('#f-cal-hint').textContent =
+      draft.calendar === 'lunar' ? '음력 날짜는 그대로, 양력 날짜가 매년 바뀌어요' : '양력 날짜 그대로 매년 같은 날이에요';
     $('#f-leap').checked = draft.leap;
     $('#f-hon').querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.hon === '1') === draft.honorific)));
     syncPreview();
@@ -225,6 +232,7 @@ function openSheet(existing) {
       return `<div>${o.date.y}년 ${formatShort(o.date)}${note}</div>`;
     });
     if (t.y + 1 > MAX_YEAR) lines.push(`<div>${MAX_YEAR}년 이후는 계산하지 않아요</div>`);
+    if (lines.length) lines.unshift(`<div class="preview-title">양력 날짜</div>`);
     $('#f-preview').innerHTML = lines.join('');
   }
 

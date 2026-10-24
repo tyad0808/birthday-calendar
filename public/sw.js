@@ -1,5 +1,5 @@
 // 오프라인 지원: 한 번 열었던 파일은 캐시에 두고, 네트워크가 되면 새로 받아 갱신한다.
-const CACHE = 'family-birthday-v1';
+const CACHE = 'family-birthday-v2';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/icon.svg'];
 
 // index.html이 불러오는 빌드 파일(이름에 해시가 붙음)도 함께 미리 받아 둔다

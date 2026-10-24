@@ -5,8 +5,8 @@
   --faint: #a3a7ad;
   --line: #ececee;
   --field: #f5f5f7;
-  --accent: #3d5a80;
-  --accent-soft: #eef2f7;
+  --accent: #2b7de9;
+  --accent-soft: #e8f1fd;
   --on-accent: #ffffff;
   --danger: #c0392b;
   --backdrop: rgba(0, 0, 0, 0.32);
@@ -23,9 +23,9 @@
     --faint: #62666d;
     --line: #232428;
     --field: #1c1d20;
-    --accent: #8fb0d9;
-    --accent-soft: #1a2230;
-    --on-accent: #0f1620;
+    --accent: #6aa6ff;
+    --accent-soft: #16243a;
+    --on-accent: #0b1a2e;
     --danger: #e57368;
     --backdrop: rgba(0, 0, 0, 0.55);
     color-scheme: dark;
@@ -139,6 +139,34 @@ button {
   margin-top: 2px;
   color: var(--sub);
   font-size: 14px;
+}
+.tag {
+  display: inline-block;
+  margin-right: 2px;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: var(--field);
+  color: var(--sub);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+  vertical-align: 1px;
+}
+.tag.lunar {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.today-item .tag {
+  background: var(--bg);
+}
+.hint {
+  margin: 8px 0 0;
+  color: var(--faint);
+  font-size: 13px;
+}
+.preview-title {
+  color: var(--text);
+  font-weight: 600;
 }
 .row-date .meta {
   color: var(--faint);
